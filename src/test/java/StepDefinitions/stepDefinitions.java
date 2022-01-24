@@ -1,9 +1,6 @@
 package StepDefinitions;
 
-import Pages.AddPatient;
-import Pages.AddConsultant;
-import Pages.AddFacility;
-import Pages.Login;
+import Pages.*;
 import Pages.AddPatient;
 import dataProvider.ConfigFileReader;
 import io.cucumber.java.en.And;
@@ -29,6 +26,7 @@ public class stepDefinitions extends BaseClass {
     AddPatient addPatient = new AddPatient();
     AddConsultant addConsultant = new AddConsultant();
     AddFacility addFacility = new AddFacility();
+    AddAppointment addAppointment = new AddAppointment();
 
     @Given("Navigate to Woundpros login page")
     public void Navigate_to_Woundpros() {
@@ -309,7 +307,7 @@ public class stepDefinitions extends BaseClass {
         wait(20).until(ExpectedConditions.visibilityOf(addFacility.getSalesManager()));
 //        addFacility.getSalesManager().sendKeys("Xfuookv");
         addFacility.getSalesManager().sendKeys(sharedatastep.ConsultantFirstName);
-        Thread.sleep(4000);
+        Thread.sleep(6000);
         actionDown();
         Thread.sleep(600);
         actionEnter();
@@ -387,6 +385,81 @@ public class stepDefinitions extends BaseClass {
     }
 
 
+    @Then("User selects newly created patient")
+    public void userSelectsNewlyCreatedPatient() {
+        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='" + sharedatastep.PatientFirstName + " " + sharedatastep.PatientLastName+"']"))).click();
+//        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Mercie Bright']"))).click();
+    }
+
+    @Then("User clicks add appointment button")
+    public void userClicksAddAppointmentButton() {
+        wait(30).until(ExpectedConditions.visibilityOf(addAppointment.getAddAppointmentButton())).isDisplayed();
+        javascriptClick(addAppointment.getAddAppointmentButton());
+    }
+
+    @Then("User selects visit type as {string}")
+    public void userSelectsVisitTypeAs(String visitType) {
+        wait(20).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//label[span='"+visitType+"']"))).click();
+    }
+
+    @Then("User enters date as today")
+    public void userEntersDateAsToday() throws InterruptedException {
+        Thread.sleep(1000);
+        addAppointment.getAppointmentDate().sendKeys(todaysDate("MM-dd-yyyy"));
+        actionEnter();
+    }
+
+    @Then("User enters timeslot as {string} to {string}")
+    public void userEntersTimeslotAsTo(String from, String to) throws InterruptedException {
+        Thread.sleep(1000);
+        addAppointment.getAppointmentFrom().sendKeys(from);
+        actionEnter();
+        addAppointment.getAppointmentTo().sendKeys(to);
+        actionEnter();
+    }
+
+    @Then("User Selects newly created consultant")
+    public void userSelectsNewlyCreatedConsultant() throws InterruptedException {
+        addAppointment.getConsultantField().sendKeys(sharedatastep.ConsultantFirstName);
+//        addAppointment.getConsultantField().sendKeys("Melanie Ping");
+        Thread.sleep(4000);
+        actionDown();
+        Thread.sleep(600);
+        actionEnter();
+    }
+
+    @Then("User Selects wound location as {string}")
+    public void userSelectsWoundLocationAs(String woundLocation) throws InterruptedException {
+        addAppointment.getWoundsLocation().click();
+        Thread.sleep(1000);
+        wait(5).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='"+woundLocation+"']"))).click();
+        implicitWait(1);
+        actionTab();
+
+    }
+
+    @Then("User Selects Procedue as {string}")
+    public void userSelectsProcedueAs(String procedue) throws InterruptedException {
+        addAppointment.getProcedue().click();
+        Thread.sleep(1000);
+//        wait(5).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='"+procedue+"']"))).click();
+        actionDown();
+        actionEnter();
+        implicitWait(1);
+        actionTab();
+    }
+
+    @Then("User Enters reason as {string}")
+    public void userEntersReasonAs(String reason) {
+        implicitWait(2);
+        addAppointment.getReason().sendKeys(reason);
+    }
+
+    @Then("User Saves appointment")
+    public void userSavesAppointment() {
+        implicitWait(2);
+        addAppointment.getSaveAppointment().click();
+    }
 }
 
 

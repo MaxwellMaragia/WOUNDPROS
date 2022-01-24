@@ -2,7 +2,7 @@ Feature: Verify the process of adding a facility
 
   Background: Navigate to login page and login
     Given Navigate to Woundpros login page
-    When Enter username "avery59@example.org" and Password "password956"
+    When Enter username "super_admin_1@example.com" and Password "password"
     And Click on login button
     Then User should be logged in with success message "Login success"
 

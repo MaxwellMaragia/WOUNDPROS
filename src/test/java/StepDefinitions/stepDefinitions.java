@@ -125,7 +125,7 @@ public class stepDefinitions extends BaseClass {
         wait(20).until(ExpectedConditions.visibilityOf(addPatient.getFacilityField()));
 //        addFacility.getSalesManager().sendKeys("Xfuookv");
         addPatient.getFacilityField().sendKeys(sharedatastep.FacilityName);
-        Thread.sleep(2000);
+        Thread.sleep(6000);
         actionDown();
         Thread.sleep(600);
         actionEnter();

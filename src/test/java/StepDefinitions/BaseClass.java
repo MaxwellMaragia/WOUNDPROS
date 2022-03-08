@@ -32,6 +32,7 @@ public class BaseClass {
     static final String CAPS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     static SecureRandom secureRnd = new SecureRandom();
     public static String filepath = System.getProperty("user.dir") + File.separator + "src\\test\\resources\\document.pdf";
+    public static String imagepath = System.getProperty("user.dir") + File.separator + "src\\test\\resources\\wound.jpeg";
 
     public static void Launchbrowser() throws Exception {
         System.setProperty("webdriver.chrome.driver", "Browsers\\chromedriver.exe");

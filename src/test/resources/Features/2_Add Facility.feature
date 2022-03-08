@@ -2,11 +2,11 @@ Feature: Verify the process of adding a facility
 
   Background: Navigate to login page and login
     Given Navigate to Woundpros login page
-    When Enter username "super_admin_1@example.com" and Password "password"
+    When Enter username and Password
     And Click on login button
     Then User should be logged in with success message "Login success"
 
-  @addFacility @sanity
+  @addFacility @sanity @PatientAssessmentWoundDebridement @PatientAssessmentPodiatry @PatientAssessmentDME @PatientAssessmentBiologic
   Scenario: Validate add facility test
     Given User clicks on facility menu from dashboard
     Then User clicks add facility button
@@ -15,7 +15,7 @@ Feature: Verify the process of adding a facility
     Then Enters contact person
     Then Select facility type as "Hospice Care"
     Then Click add facility document
-    Then Enter document title and document type as "Insurance"
+    Then Enter document title and document type as "Document"
     Then Selects facility document
     Then Verify success message alert "Document added successfully"
     Then Enters facility address as "114 North Eastwood Street, Houston, Texas 77011, United States"

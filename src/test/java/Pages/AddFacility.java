@@ -23,7 +23,7 @@ public class AddFacility extends BaseClass {
         return addFacility;
     }
 
-    @FindBy(id = "facilityForm_sales_manager")
+    @FindBy(xpath = "//*[@id=\"facilityForm_sales_managers\"]")
     WebElement salesManager;
     public WebElement getSalesManager(){
         return salesManager;

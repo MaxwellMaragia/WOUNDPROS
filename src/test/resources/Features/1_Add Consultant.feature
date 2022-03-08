@@ -2,18 +2,18 @@ Feature: Verify the process of adding a consultant
 
   Background: Navigate to login page and login
     Given Navigate to Woundpros login page
-    When Enter username "super_admin_1@example.com" and Password "password"
+    When Enter username and Password
     And Click on login button
     Then User should be logged in with success message "Login success"
 
-  @AddConsultant @sanity
+  @AddConsultant @sanity @PatientAssessmentWoundDebridement @PatientAssessmentPodiatry @PatientAssessmentDME @PatientAssessmentBiologic
   Scenario: Validate add consultant test
     Given User clicks on consultant menu from dashboard
     Then User clicks add consultant button
     Then Enters consultant first name
     Then Enters consultant last name
     Then Enters consultant date of birth as "09-29-2000"
-    Then Select consultant gender
+    Then Select consultant gender as "Male"
     Then Enters consultant date of hire
     Then Enters consultant NPI
     Then Enters consultants CAQH ID

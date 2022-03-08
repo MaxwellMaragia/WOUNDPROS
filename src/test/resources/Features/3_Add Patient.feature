@@ -2,18 +2,18 @@ Feature: Verify the process of adding a patient
 
   Background: Navigate to login page and login
     Given Navigate to Woundpros login page
-    When Enter username "super_admin_1@example.com" and Password "password"
+    When Enter username and Password
     And Click on login button
     Then User should be logged in with success message "Login success"
 
-  @AddPatient @sanity
+  @AddPatient @sanity @PatientAssessmentWoundDebridement @PatientAssessmentPodiatry @PatientAssessmentDME @PatientAssessmentBiologic
   Scenario: Validate add patient test
     Given User clicks on patient menu from dashboard
     Then User clicks add patient button
     Then Enters patient first name
     Then Enters patient last name
     Then Enters patient date of birth as "09-29-2000"
-    Then Select patient gender
+    Then Select patient gender as "Male"
     Then Enters SSN number
     Then Enters patient email
     Then Enters patient phone number

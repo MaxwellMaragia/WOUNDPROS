@@ -27,6 +27,7 @@ public class stepDefinitions extends BaseClass {
     AddConsultant addConsultant = new AddConsultant();
     AddFacility addFacility = new AddFacility();
     AddAppointment addAppointment = new AddAppointment();
+    PatientAssessment patientAssessment = new PatientAssessment();
 
     @Given("Navigate to Woundpros login page")
     public void Navigate_to_Woundpros() {
@@ -38,18 +39,18 @@ public class stepDefinitions extends BaseClass {
         }
     }
 
-    @When("^Enter username \"(.*)\" and Password \"(.*)\"$")
-    public void enter_username_and_password(String uid, String pwd) {
-        wait(20).until(ExpectedConditions.visibilityOf(log.username())).sendKeys(uid);
+    @When("^Enter username and Password")
+    public void enter_username_and_password() {
+        wait(20).until(ExpectedConditions.visibilityOf(log.username())).sendKeys(pro.getProperty("Username"));
         implicitWait(2);
-        log.password().sendKeys(pwd);
+        log.password().sendKeys(pro.getProperty("Password"));
 
     }
 
     @And("Click on login button")
     public void click_on_log_in_button() {
-
-        javascriptClick(log.Click_login_button());
+        scrollIntoView(log.Click_login_button());
+        log.Click_login_button().click();
 
     }
 
@@ -64,12 +65,13 @@ public class stepDefinitions extends BaseClass {
     @Given("User clicks on patient menu from dashboard")
     public void userClicksOnPatientMenuFromDashboard() throws InterruptedException {
         wait(30).until(ExpectedConditions.visibilityOf(addPatient.getPatientsMenu())).click();
-        Thread.sleep(1000);
+        Thread.sleep(3000);
+        driver.navigate().refresh();
     }
 
     @Then("User clicks add patient button")
     public void userClicksAddPatientButton() {
-        wait(30).until(ExpectedConditions.visibilityOf(addPatient.getAddPatient()));
+        wait(60).until(ExpectedConditions.visibilityOf(addPatient.getAddPatient()));
         javascriptClick(addPatient.getAddPatient());
         implicitWait(3);
     }
@@ -96,12 +98,11 @@ public class stepDefinitions extends BaseClass {
         actionEnter();
     }
 
-    @Then("Select patient gender")
-    public void selectPatientGender() throws InterruptedException {
+    @Then("Select patient gender as {string}")
+    public void selectPatientGender(String gender) throws InterruptedException {
         addPatient.getGenderField().click();
         Thread.sleep(2000);
-//        actionDown();
-        actionEnter();
+        driver.findElement(By.xpath("//*[contains(@title, '" + gender + "')]//div[text()='" + gender + "']")).click();
     }
 
     @Then("Enters SSN number")
@@ -151,7 +152,7 @@ public class stepDefinitions extends BaseClass {
 
     @Then("Verify success message alert {string}")
     public void verifySuccessMessageAlert(String expected) {
-        String Actual = wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='" + expected + "']"))).getText();
+        String Actual = wait(120).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='" + expected + "']"))).getText();
         assertEquals(expected, Actual);
     }
 
@@ -196,18 +197,17 @@ public class stepDefinitions extends BaseClass {
         actionEnter();
     }
 
-    @Then("Select consultant gender")
-    public void selectConsultantGender() throws InterruptedException {
+    @Then("Select consultant gender as {string}")
+    public void selectConsultantGender(String gender) throws InterruptedException {
         addConsultant.getGenderField().click();
-        Thread.sleep(2000);
-//        actionDown();
-        actionEnter();
+        Thread.sleep(300);
+        driver.findElement(By.xpath("//*[contains(@title, '" + gender + "')]//div[text()='" + gender + "']")).click();
     }
 
     @Then("Enters consultant date of hire")
     public void entersConsultantDateOfHire() throws InterruptedException {
         Thread.sleep(1000);
-        addConsultant.getDohField().sendKeys(daysBeforeToday(10,"yyyy-MM-dd"));
+        addConsultant.getDohField().sendKeys(daysBeforeToday(10, "yyyy-MM-dd"));
         actionEnter();
 
     }
@@ -245,7 +245,7 @@ public class stepDefinitions extends BaseClass {
     public void selectsConsultantDegreeAs(String degree) throws InterruptedException {
         addConsultant.getDegreeField().click();
         Thread.sleep(1000);
-        wait(5).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='"+degree+"']"))).click();
+        wait(5).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='" + degree + "']"))).click();
         implicitWait(1);
         actionTab();
     }
@@ -257,7 +257,7 @@ public class stepDefinitions extends BaseClass {
 
     @Then("Selects consultant designation as {string}")
     public void selectsConsultantDesignationAs(String designation) throws InterruptedException {
-       addConsultant.getDesignationField().click();
+        addConsultant.getDesignationField().click();
         Thread.sleep(1000);
 //        WebElement desg = wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='"+designation+"']")));
 //        javascriptClick(desg);
@@ -304,8 +304,9 @@ public class stepDefinitions extends BaseClass {
 
     @Then("Enters Sales manager name")
     public void entersSalesManagerName() throws InterruptedException {
-        wait(20).until(ExpectedConditions.visibilityOf(addFacility.getSalesManager()));
-//        addFacility.getSalesManager().sendKeys("Xfuookv");
+        wait(20).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"facilityForm\"]/div[2]/div[2]/div/div/div/div/div"))).click();
+        Thread.sleep(400);
+//        addFacility.getSalesManager().sendKeys("Suaepqw");
         addFacility.getSalesManager().sendKeys(sharedatastep.ConsultantFirstName);
         Thread.sleep(6000);
         actionDown();
@@ -315,8 +316,9 @@ public class stepDefinitions extends BaseClass {
 
     @Then("Enters facility name")
     public void entersFacilityName() {
-        sharedatastep.FacilityName = randomCaps(1)+randomSmall(6);
+        sharedatastep.FacilityName = randomCaps(1) + randomSmall(6);
         addFacility.getFacilityName().sendKeys(sharedatastep.FacilityName);
+        System.out.println("Facility name : "+sharedatastep.FacilityName);
     }
 
     @Then("Enters contact person")
@@ -328,21 +330,21 @@ public class stepDefinitions extends BaseClass {
     @Then("Select facility type as {string}")
     public void selectFacilityTypeAs(String facility) throws InterruptedException {
         Thread.sleep(1000);
-        driver.findElement(By.xpath("//label[span='"+facility+"']")).click();
+        driver.findElement(By.xpath("//label[span='" + facility + "']")).click();
     }
 
     @Then("Click add facility document")
     public void clickAddFacilityDocument() {
-         addFacility.getFacilityDocument().click();
+        addFacility.getFacilityDocument().click();
     }
 
     @Then("Enter document title and document type as {string}")
     public void enterDocumentTitleAndDocumentTypeAs(String docType) throws InterruptedException {
-        wait(30).until(ExpectedConditions.visibilityOf(addFacility.getDocumentTitle())).sendKeys(randomCaps(1)+randomSmall(6));
+        wait(30).until(ExpectedConditions.visibilityOf(addFacility.getDocumentTitle())).sendKeys(randomCaps(1) + randomSmall(6));
         implicitWait(3);
         addFacility.getDocumentType().click();
         Thread.sleep(1500);
-        WebElement type = wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='"+docType+"']")));
+        WebElement type = wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + docType + "')]//div[text()='" + docType + "']")));
         type.click();
     }
 
@@ -364,7 +366,7 @@ public class stepDefinitions extends BaseClass {
 
     @Then("Enters facility primary email")
     public void entersFacilityPrimaryEmail() {
-        String email = sharedatastep.FacilityName +"@gmail.com";
+        String email = sharedatastep.FacilityName + "@gmail.com";
         addFacility.getEmailField().sendKeys(email);
     }
 
@@ -387,8 +389,8 @@ public class stepDefinitions extends BaseClass {
 
     @Then("User selects newly created patient")
     public void userSelectsNewlyCreatedPatient() {
-        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='" + sharedatastep.PatientFirstName + " " + sharedatastep.PatientLastName+"']"))).click();
-//        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Mercie Bright']"))).click();
+        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='" + sharedatastep.PatientFirstName + " " + sharedatastep.PatientLastName + "']"))).click();
+//        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Vrzwrhr Lwnmucj']"))).click();
     }
 
     @Then("User clicks add appointment button")
@@ -399,7 +401,7 @@ public class stepDefinitions extends BaseClass {
 
     @Then("User selects visit type as {string}")
     public void userSelectsVisitTypeAs(String visitType) {
-        wait(20).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//label[span='"+visitType+"']"))).click();
+        wait(20).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//label[span='" + visitType + "']"))).click();
     }
 
     @Then("User enters date as today")
@@ -432,7 +434,7 @@ public class stepDefinitions extends BaseClass {
     public void userSelectsWoundLocationAs(String woundLocation) throws InterruptedException {
         addAppointment.getWoundsLocation().click();
         Thread.sleep(1000);
-        wait(5).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='"+woundLocation+"']"))).click();
+        wait(5).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='" + woundLocation + "']"))).click();
         implicitWait(1);
         actionTab();
 
@@ -459,6 +461,533 @@ public class stepDefinitions extends BaseClass {
     public void userSavesAppointment() {
         implicitWait(2);
         addAppointment.getSaveAppointment().click();
+    }
+
+    @Given("User clicks on newly created appointment")
+    public void userClicksOnNewlyCreatedAppointment() {
+//        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='"+sharedatastep.ConsultantFirstName+" "+sharedatastep.ConsultantLastName+"']"))).click();
+//        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Cbkegbl Rnfuhik']"))).click();
+        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[text()='new visit']"))).click();
+    }
+
+    @Then("User clicks on start assessment button")
+    public void userClicksOnStartAssessmentButton() {
+        wait(30).until(ExpectedConditions.visibilityOf(patientAssessment.getAssessmentButton()));
+        javascriptClick(patientAssessment.getAssessmentButton());
+    }
+
+    @Then("Select procedue as {string}")
+    public void selectProcedueAs(String arg0) throws InterruptedException {
+        wait(30).until(ExpectedConditions.visibilityOf(patientAssessment.getProcedueDropdown())).click();
+        Thread.sleep(1000);
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Select wound status as {string}")
+    public void selectWoundStatusAs(String arg0) throws InterruptedException {
+        wait(50).until(ExpectedConditions.visibilityOf(patientAssessment.getWoundStatus())).click();
+        Thread.sleep(1000);
+//        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='"+arg0+"']"))).click();
+        actionDown();
+        actionEnter();
+    }
+
+    @Then("Upload image wound")
+    public void uploadImageWound() throws InterruptedException {
+        Thread.sleep(1000);
+        patientAssessment.getUploadWound().sendKeys(imagepath);
+    }
+
+    @Then("Fill in dimensions that have not been generated")
+    public void fillInDimensionsThatHaveNotBeenGenerated() {
+        String length = patientAssessment.getAssessmentLength().getAttribute("value");
+        String width = patientAssessment.getAssessmentWidth().getAttribute("value");
+        String depth = patientAssessment.getAssessmentDepth().getAttribute("value");
+        String area = patientAssessment.getAssessmentArea().getAttribute("value");
+        String volume = patientAssessment.getAssessmentVolume().getAttribute("value");
+
+        if (length.isEmpty()) {
+            patientAssessment.getAssessmentLength().sendKeys("3.85");
+        }
+        if (width.isEmpty()) {
+            patientAssessment.getAssessmentWidth().sendKeys("4.30");
+        }
+        if (depth.isEmpty()) {
+            patientAssessment.getAssessmentDepth().sendKeys("1.30");
+        }
+//         if(area.isEmpty()){
+//             patientAssessment.getAssessmentArea().sendKeys("16.56");
+//         }
+//         if(volume.isEmpty()){
+//             patientAssessment.getAssessmentVolume().sendKeys("");
+//         }
+    }
+
+    @Then("Select wound size as {string}")
+    public void selectWoundSizeAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getSize().click();
+        Thread.sleep(300);
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Select wound Type as {string}")
+    public void selectWoundTypeAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getWoundType().click();
+        Thread.sleep(300);
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Select stage as {string}")
+    public void selectStageAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getAssessmentStage().click();
+        Thread.sleep(300);
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Select exudate amount as {string}")
+    public void selectExudateAmountAs(String arg0) throws Throwable {
+        Thread.sleep(300);
+        patientAssessment.getExudateAmount().click();
+        Thread.sleep(300);
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Select wound side as {string}")
+    public void selectWoundSideAs(String arg0) throws Throwable {
+        Thread.sleep(300);
+        patientAssessment.getWoundSide().click();
+        Thread.sleep(300);
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("User fills in tissues affected if they have not been generated")
+    public void userFillsInTissuesAffectedIfTheyHaveNotBeenGenerated() {
+        String granulationTissue = patientAssessment.getGranularTissue().getAttribute("value");
+        String necroticTissue = patientAssessment.getNecroticTissue().getAttribute("value");
+        String fibrousTissue = patientAssessment.getFibrousTissue().getAttribute("value");
+        String sloughTissue = patientAssessment.getSloughTissue().getAttribute("value");
+        String escharTissue = patientAssessment.getEscharTissue().getAttribute("value");
+
+        if (granulationTissue.isEmpty()) {
+            patientAssessment.getGranularTissue().sendKeys("65.82");
+        }
+        if (necroticTissue.isEmpty()) {
+            patientAssessment.getNecroticTissue().sendKeys("10");
+        }
+        if (fibrousTissue.isEmpty()) {
+            patientAssessment.getFibrousTissue().sendKeys("34.18");
+        }
+        if (sloughTissue.isEmpty()) {
+            patientAssessment.getSloughTissue().sendKeys("0");
+        }
+        if (escharTissue.isEmpty()) {
+            patientAssessment.getEscharTissue().sendKeys("7");
+        }
+    }
+
+    @Then("Select conservative treatment as {string}")
+    public void selectConservativeTreatmentAs(String arg0) throws Throwable {
+        Thread.sleep(300);
+        patientAssessment.getConservativeTreatment().click();
+        Thread.sleep(300);
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Select wound duration as {string}")
+    public void selectWoundDurationAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getWoundDuration().click();
+        Thread.sleep(300);
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Select wound condition as {string}")
+    public void selectWoundConditionAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getWoundCondition().click();
+        Thread.sleep(300);
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Select response to therapy as {string}")
+    public void selectResponseToTherapyAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getTherapyResponse().click();
+        Thread.sleep(300);
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Select wound edges as {string}")
+    public void selectWoundEdgesAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getWoundEdges().click();
+        Thread.sleep(300);
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Select wound bed as {string}")
+    public void selectWoundBedAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getWoundBed().click();
+        Thread.sleep(300);
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Enter undermining value as {string}")
+    public void enterUnderminingValueAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getAssessmentUndermining().sendKeys(arg0);
+    }
+
+    @Then("Enter tunneling size as {string}")
+    public void enterTunnelingSizeAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getTunnelingSize().sendKeys(arg0);
+    }
+
+    @Then("Select tunneling direction as {string}")
+    public void selectTunnelingDirectionAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getTunnelingDirection().click();
+        Thread.sleep(300);
+        actionDown();
+        actionEnter();
+    }
+
+    @Then("Enter sinus tract as {string}")
+    public void enterSinusTractAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getSinnusTract().sendKeys(arg0);
+    }
+
+    @Then("Select exposed structures as {string}")
+    public void selectExposedStructuresAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getExposedStructures().click();
+        Thread.sleep(300);
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Select periwound color as {string}")
+    public void selectPeriwoundColorAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getPeriwoundColor().click();
+        Thread.sleep(300);
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Select pain level as {string}")
+    public void selectPainLevelAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getPainLevel().click();
+        Thread.sleep(300);
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Select exudate type as {string}")
+    public void selectExudateTypeAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getExudateType().click();
+        Thread.sleep(300);
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Select epithelialization as {string}")
+    public void selectEpithelializationAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getEpithelialization().click();
+        Thread.sleep(300);
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Select odor as {string}")
+    public void selectOdorAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getOdor().click();
+        Thread.sleep(300);
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Select infection as {string}")
+    public void selectInfectionAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getInfection().click();
+        Thread.sleep(300);
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Select other interventions as {string}")
+    public void selectOtherInterventionsAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getOtherInterventions().click();
+        Thread.sleep(300);
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Select other related factors as {string}")
+    public void selectOtherRelatedFactorsAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getOtherRelatedFactors().click();
+        Thread.sleep(300);
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Enter Referral recommendations as {string}")
+    public void enterReferralRecommendationsAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getReferralRecommendations().sendKeys(arg0);
+    }
+
+    @Then("Enter treatment filter as {string}")
+    public void enterTreatmentFilterAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getTreatmentFilter().click();
+        Thread.sleep(300);
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Select wound location")
+    public void selectWoundLocation() throws InterruptedException {
+        Thread.sleep(1000);
+        patientAssessment.getBodyImage().click();
+        Thread.sleep(1000);
+        wait(10).until(ExpectedConditions.visibilityOf(patientAssessment.getWouldLocation())).click();
+        Thread.sleep(300);
+        patientAssessment.getSaveWoundLocation().click();
+        Thread.sleep(1000);
+    }
+
+    @Then("Click get treatment button")
+    public void clickGetTreatmentButton() {
+        patientAssessment.getGetTreatment().click();
+    }
+
+    @Then("Select treatment scenario as {string}")
+    public void selectTreatmentScenarioAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getTreatmentScenario().click();
+        Thread.sleep(300);
+        patientAssessment.getTreatmentScenario().sendKeys(arg0);
+        wait(60).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Add treatment order item {string}")
+    public void addTreatmentOrderItem(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getOrderItems().click();
+        Thread.sleep(300);
+        patientAssessment.getOrderItemField().sendKeys(arg0);
+        Thread.sleep(6000);
+        actionDown();
+        Thread.sleep(600);
+        actionEnter();
+    }
+
+    @Then("Add plan of care as {string}")
+    public void addPlanOfCareAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getPlanOfCare().click();
+        Thread.sleep(1000);
+        wait(30).until(ExpectedConditions.visibilityOf(patientAssessment.getPlanOfCareField())).sendKeys(arg0);
+        Thread.sleep(8000);
+        actionDown();
+        Thread.sleep(600);
+        actionEnter();
+        wait(20).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='" + arg0 + "']"))).isDisplayed();
+    }
+
+    @Then("Click create assessment button")
+    public void clickCreateAssessmentButton() throws InterruptedException {
+        Thread.sleep(3000);
+        patientAssessment.getCreateAssessment().click();
+    }
+
+
+    @Then("Wait until treatment order item is generated {string}")
+    public void waitUntilTreatmentOrderItemIsGenerated(String arg0) {
+        wait(30).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//p[text()='" + arg0 + "']")));
+    }
+
+    @Then("Click select all under plan of care")
+    public void clickSelectAllUnderPlanOfCare() {
+        wait(20).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Select All']/parent::div/preceding-sibling::label"))).click();
+    }
+
+
+    //Podiatry extra data
+    @Then("Enter Post Debridement Wound Measurements")
+    public void enterPostDebridementWoundMeasurements() throws InterruptedException {
+        Thread.sleep(200);
+        patientAssessment.getPostDebridementLength().sendKeys("2");
+        Thread.sleep(200);
+        patientAssessment.getPostDebridementWidth().sendKeys("2");
+        Thread.sleep(200);
+        patientAssessment.getPostDebridementDepth().sendKeys("2");
+    }
+
+    @Then("Add Vascular measurements")
+    public void addVascularMeasurements() throws InterruptedException {
+        Thread.sleep(200);
+        patientAssessment.getRightDp().click();
+        Thread.sleep(200);
+        actionDown();
+        actionEnter();
+
+        Thread.sleep(200);
+        patientAssessment.getLeftDp().click();
+        Thread.sleep(200);
+        actionDown();
+        actionEnter();
+
+        Thread.sleep(200);
+        patientAssessment.getRightPt().click();
+        Thread.sleep(200);
+        actionDown();
+        actionEnter();
+
+        Thread.sleep(200);
+        patientAssessment.getLeftPt().click();
+        Thread.sleep(200);
+        actionDown();
+        actionEnter();
+
+        Thread.sleep(200);
+        patientAssessment.getSkinTemperatureRight().click();
+        Thread.sleep(200);
+        actionDown();
+        actionEnter();
+
+        Thread.sleep(200);
+        patientAssessment.getSkinTemperatureLeft().click();
+        Thread.sleep(200);
+        actionDown();
+        actionEnter();
+
+        Thread.sleep(200);
+        patientAssessment.getDigitalHairRight().click();
+        Thread.sleep(200);
+        actionDown();
+        actionEnter();
+
+        Thread.sleep(200);
+        patientAssessment.getDigitalHairLeft().click();
+        Thread.sleep(200);
+        actionDown();
+        actionEnter();
+
+    }
+
+    @Then("Add Neurology measurements")
+    public void addNeurologyMeasurements() throws InterruptedException {
+        Thread.sleep(200);
+        patientAssessment.getMonofilamentTestingRight().click();
+        Thread.sleep(200);
+        actionDown();
+        actionEnter();
+
+        Thread.sleep(200);
+        patientAssessment.getMonofilamentTestingLeft().click();
+        Thread.sleep(200);
+        actionDown();
+        actionEnter();
+
+        Thread.sleep(200);
+        patientAssessment.getPinPrickRight().click();
+        Thread.sleep(200);
+        actionDown();
+        actionEnter();
+
+        Thread.sleep(200);
+        patientAssessment.getPinPrickLeft().click();
+        Thread.sleep(200);
+        actionDown();
+        actionEnter();
+
+        Thread.sleep(200);
+        patientAssessment.getSoftTouchRight().click();
+        Thread.sleep(200);
+        actionDown();
+        actionEnter();
+
+        Thread.sleep(200);
+        patientAssessment.getSoftTouchLeft().click();
+        Thread.sleep(200);
+        actionDown();
+        actionEnter();
+    }
+    //end Podiatry procedue extra data
+
+    //biologic data
+    @Then("Click on add biologic button")
+    public void clickOnAddBiologicButton() throws InterruptedException {
+        Thread.sleep(500);
+        driver.findElement(By.xpath("//button[span='Add Biologic']")).click();
+    }
+
+
+    @Then("Select biologic {string}")
+    public void selectBiologic(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        wait(20).until(ExpectedConditions.visibilityOf(patientAssessment.getBiologic())).click();
+        Thread.sleep(1000);
+//        wait(30).until(ExpectedConditions.visibilityOf(patientAssessment.getBiologic())).sendKeys(arg0);
+//        Thread.sleep(8000);
+        actionDown();
+        actionEnter();
+//        wait(20).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='" + arg0 + "']"))).isDisplayed();
+    }
+
+    @Then("Select graft size and enter quantity as {string}")
+    public void selectGraftSizeAndEnterQuantityAs(String arg0) throws InterruptedException {
+        Thread.sleep(1000);
+        wait(20).until(ExpectedConditions.visibilityOf(patientAssessment.getGraftsize())).click();
+        Thread.sleep(200);
+        actionDown();
+        actionEnter();
+        Thread.sleep(300);
+        patientAssessment.getQuantity().sendKeys(arg0);
+    }
+
+    @Then("Add circulation and neurologic status")
+    public void addCirculationAndNeurologicStatus() throws InterruptedException {
+        Thread.sleep(1000);
+        wait(20).until(ExpectedConditions.visibilityOf(patientAssessment.getCirculation())).click();
+        Thread.sleep(200);
+        actionDown();
+        actionDown();
+        actionEnter();
+        Thread.sleep(300);
+        wait(20).until(ExpectedConditions.visibilityOf(patientAssessment.getNeurologic())).click();
+        Thread.sleep(200);
+        actionDown();
+        actionDown();
+        actionEnter();
+        Thread.sleep(300);
+    }
+
+    @Then("Select Comorbidities as {string}")
+    public void selectComorbiditiesAs(String arg0) throws InterruptedException {
+        patientAssessment.getComorbidities().click();
+        Thread.sleep(300);
+        wait(60).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+        actionTab();
+        Thread.sleep(300);
+    }
+
+    @Then("Add primary care physician as {string}")
+    public void addPrimaryCarePhysicianAs(String arg0) {
+        patientAssessment.getPhysician().sendKeys(arg0);
+    }
+
+    @Then("Select treatment number {string}")
+    public void selectTreatmentNumber(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getTreatmentNumber().click();
+        Thread.sleep(300);
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
     }
 }
 

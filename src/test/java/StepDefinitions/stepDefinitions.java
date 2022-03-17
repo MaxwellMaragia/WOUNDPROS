@@ -2,6 +2,7 @@ package StepDefinitions;
 
 import Pages.*;
 import Pages.AddPatient;
+import com.github.javafaker.Faker;
 import dataProvider.ConfigFileReader;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -28,6 +29,7 @@ public class stepDefinitions extends BaseClass {
     AddFacility addFacility = new AddFacility();
     AddAppointment addAppointment = new AddAppointment();
     PatientAssessment patientAssessment = new PatientAssessment();
+    Faker faker = new Faker();
 
     @Given("Navigate to Woundpros login page")
     public void Navigate_to_Woundpros() {
@@ -78,14 +80,14 @@ public class stepDefinitions extends BaseClass {
 
     @Then("Enters patient first name")
     public void entersPatientFirstdName() {
-        sharedatastep.PatientFirstName = randomCaps(1) + randomSmall(6);
+        sharedatastep.PatientFirstName = faker.name().firstName();
         wait(30).until(ExpectedConditions.visibilityOf(addPatient.getFirstNameField())).sendKeys(sharedatastep.PatientFirstName);
         implicitWait(1);
     }
 
     @Then("Enters patient last name")
     public void entersPatientLastName() {
-        sharedatastep.PatientLastName = randomCaps(1) + randomSmall(6);
+        sharedatastep.PatientLastName = faker.name().lastName();
         wait(30).until(ExpectedConditions.visibilityOf(addPatient.getLastNameField())).sendKeys(sharedatastep.PatientLastName);
         implicitWait(1);
         System.out.println("Patient names provided are: " + sharedatastep.PatientFirstName + " " + sharedatastep.PatientLastName);
@@ -177,14 +179,16 @@ public class stepDefinitions extends BaseClass {
 
     @Then("Enters consultant first name")
     public void entersConsultantFirstName() {
-        sharedatastep.ConsultantFirstName = randomCaps(1) + randomSmall(6);
+//        sharedatastep.ConsultantFirstName = randomCaps(1) + randomSmall(6);
+        sharedatastep.ConsultantFirstName = faker.name().firstName();
         wait(30).until(ExpectedConditions.visibilityOf(addConsultant.getFirstNameField())).sendKeys(sharedatastep.ConsultantFirstName);
         implicitWait(1);
     }
 
     @Then("Enters consultant last name")
     public void entersConsultantLastName() {
-        sharedatastep.ConsultantLastName = randomCaps(1) + randomSmall(6);
+//        sharedatastep.ConsultantLastName = randomCaps(1) + randomSmall(6);
+        sharedatastep.ConsultantLastName = faker.name().lastName();;
         wait(30).until(ExpectedConditions.visibilityOf(addConsultant.getLastNameField())).sendKeys(sharedatastep.ConsultantLastName);
         implicitWait(1);
         System.out.println("Consultant names provided are: " + sharedatastep.ConsultantFirstName + " " + sharedatastep.ConsultantLastName);
@@ -316,15 +320,15 @@ public class stepDefinitions extends BaseClass {
 
     @Then("Enters facility name")
     public void entersFacilityName() {
-        sharedatastep.FacilityName = randomCaps(1) + randomSmall(6);
+        sharedatastep.FacilityName = faker.company().name();
         addFacility.getFacilityName().sendKeys(sharedatastep.FacilityName);
         System.out.println("Facility name : "+sharedatastep.FacilityName);
     }
 
     @Then("Enters contact person")
     public void entersContactPerson() {
-        addFacility.getContactPerson().sendKeys("Xjnhypj Lufirkj");
-        //addFacility.getContactPerson().sendKeys(sharedatastep.ConsultantFirstName+" "+sharedatastep.ConsultantLastName);
+//        addFacility.getContactPerson().sendKeys("Xjnhypj Lufirkj");
+        addFacility.getContactPerson().sendKeys(sharedatastep.ConsultantFirstName+" "+sharedatastep.ConsultantLastName);
     }
 
     @Then("Select facility type as {string}")
@@ -366,7 +370,7 @@ public class stepDefinitions extends BaseClass {
 
     @Then("Enters facility primary email")
     public void entersFacilityPrimaryEmail() {
-        String email = sharedatastep.FacilityName + "@gmail.com";
+        String email = sharedatastep.ConsultantFirstName + "@gmail.com";
         addFacility.getEmailField().sendKeys(email);
     }
 
@@ -390,7 +394,7 @@ public class stepDefinitions extends BaseClass {
     @Then("User selects newly created patient")
     public void userSelectsNewlyCreatedPatient() {
         wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='" + sharedatastep.PatientFirstName + " " + sharedatastep.PatientLastName + "']"))).click();
-//        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Vrzwrhr Lwnmucj']"))).click();
+//        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Alexa Purdy']"))).click();
     }
 
     @Then("User clicks add appointment button")

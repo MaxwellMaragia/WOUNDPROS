@@ -268,7 +268,7 @@ public class PatientAssessment extends BaseClass {
         return getTreatment;
     }
 
-    @FindBy(id = "rc_select_25")
+    @FindBy(xpath = "//span[text()='search for treatment protocols']/preceding-sibling::span/input")
     WebElement treatmentScenario;
     public WebElement getTreatmentScenario(){
         return treatmentScenario;
@@ -280,7 +280,7 @@ public class PatientAssessment extends BaseClass {
         return orderItems;
     }
 
-    @FindBy(id = "rc_select_29")
+    @FindBy(id = "rc_select_28")
     WebElement orderItemField;
     public WebElement getOrderItemField(){
         return orderItemField;
@@ -292,7 +292,7 @@ public class PatientAssessment extends BaseClass {
         return planOfCare;
     }
 
-    @FindBy(id = "rc_select_26")
+    @FindBy(xpath = "//span[text()='Search for plan of care step']/preceding-sibling::span/input")
     WebElement planOfCareField;
     public WebElement getPlanOfCareField(){
         return planOfCareField;

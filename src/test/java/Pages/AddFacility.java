@@ -11,7 +11,7 @@ public class AddFacility extends BaseClass {
         PageFactory.initElements(driver,this);
     }
 
-    @FindBy(xpath = "//*[@id=\"main-menu\"]/div[1]/div[6]")
+    @FindBy(xpath = "//*[@id=\"main-menu\"]/div[1]/div[7]")
     WebElement FacilityMenu;
     public WebElement getFacilityMenu(){
         return FacilityMenu;

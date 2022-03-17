@@ -10,7 +10,7 @@ public class AddConsultant extends BaseClass {
         PageFactory.initElements(driver,this);
     }
 
-    @FindBy(xpath = "//*[@id=\"main-menu\"]/div[1]/div[5]")
+    @FindBy(xpath = "//*[@id=\"main-menu\"]/div[1]/div[6]")
     WebElement consultantsMenu;
     public WebElement getConsultantsMenu() {
         return consultantsMenu;

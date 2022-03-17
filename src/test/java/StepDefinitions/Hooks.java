@@ -62,6 +62,6 @@ public class Hooks extends BaseClass {
 			e.printStackTrace();
 		}
 
-//		BaseClass.Closebrowser();
+		BaseClass.Closebrowser();
 	}
 }

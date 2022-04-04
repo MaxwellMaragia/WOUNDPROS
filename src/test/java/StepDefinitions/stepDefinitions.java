@@ -394,7 +394,7 @@ public class stepDefinitions extends BaseClass {
     @Then("User selects newly created patient")
     public void userSelectsNewlyCreatedPatient() {
         wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='" + sharedatastep.PatientFirstName + " " + sharedatastep.PatientLastName + "']"))).click();
-//        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Alexa Purdy']"))).click();
+//        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Hubert Carroll']"))).click();
     }
 
     @Then("User clicks add appointment button")
@@ -927,7 +927,7 @@ public class stepDefinitions extends BaseClass {
     //biologic data
     @Then("Click on add biologic button")
     public void clickOnAddBiologicButton() throws InterruptedException {
-        Thread.sleep(500);
+        Thread.sleep(1000);
         driver.findElement(By.xpath("//button[span='Add Biologic']")).click();
     }
 

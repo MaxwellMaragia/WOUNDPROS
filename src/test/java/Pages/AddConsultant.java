@@ -112,4 +112,40 @@ public class AddConsultant extends BaseClass {
         return addressField;
     }
 
+    @FindBy(id = "new-patient_make")
+    WebElement vehicleMake;
+    public WebElement getVehicleMake(){
+        return vehicleMake;
+    }
+
+    @FindBy(id = "new-patient_model")
+    WebElement vehicleModel;
+    public WebElement getVehicleModel(){
+        return vehicleModel;
+    }
+
+    @FindBy(id = "new-patient_year")
+    WebElement vehicleYear;
+    public WebElement getVehicleYear(){
+        return vehicleYear;
+    }
+
+    @FindBy(id = "new-patient_fuel_type")
+    WebElement vehicleFuel;
+    public WebElement getVehicleFuel(){
+        return vehicleFuel;
+    }
+
+    @FindBy(id = "new-patient_registration_no")
+    WebElement vehicleReg;
+    public WebElement getVehicleReg(){
+        return vehicleReg;
+    }
+
+    @FindBy(xpath = "//button[text()='Save']")
+    WebElement vehicleSave;
+    public WebElement getVehicleSave(){
+        return vehicleSave;
+    }
+
 }

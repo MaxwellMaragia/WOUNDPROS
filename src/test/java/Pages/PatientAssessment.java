@@ -106,6 +106,12 @@ public class PatientAssessment extends BaseClass {
         return woundSide;
     }
 
+    @FindBy(id = "new-asssessment_wound_position")
+    WebElement woundPosition;
+    public WebElement getWoundPosition(){
+        return woundPosition;
+    }
+
     @FindBy(id = "new-asssessment_granulation_tissue")
     WebElement granularTissue;
     public WebElement getGranularTissue(){
@@ -152,6 +158,12 @@ public class PatientAssessment extends BaseClass {
     WebElement woundCondition;
     public WebElement getWoundCondition(){
         return woundCondition;
+    }
+
+    @FindBy(id = "new-asssessment_wound_dressing")
+    WebElement woundDressing;
+    public WebElement getWoundDressing(){
+        return woundDressing;
     }
 
     @FindBy(id = "new-asssessment_response_to_therapy")

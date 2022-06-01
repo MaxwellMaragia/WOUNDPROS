@@ -89,4 +89,22 @@ public class AddFacility extends BaseClass {
         return create;
     }
 
+    @FindBy(id = "faceSheetForm_title")
+    WebElement facilityDocumentTitle;
+    public WebElement getFacilityDocumentTitle(){
+        return facilityDocumentTitle;
+    }
+
+    @FindBy(id = "faceSheetForm_type")
+    WebElement facilityDocumentType;
+    public WebElement getFacilityDocumentType(){
+        return facilityDocumentType;
+    }
+
+    @FindBy(xpath = "//*[@id=\"faceSheetForm\"]/div[4]/div[2]/div/div/span/div[1]/span/input")
+    WebElement facilityDocumentUpload;
+    public WebElement getFacilityDocumentUpload(){
+        return facilityDocumentUpload;
+    }
+
 }

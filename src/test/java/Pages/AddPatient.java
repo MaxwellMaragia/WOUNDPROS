@@ -58,7 +58,7 @@ public class AddPatient extends BaseClass {
         return ssnField;
     }
 
-    @FindBy(id = "new-patient_phone_no")
+    @FindBy(id = "insuranceForm_contact")
     WebElement phoneNumberField;
     public WebElement getPhoneNumberField(){
         return phoneNumberField;
@@ -86,5 +86,47 @@ public class AddPatient extends BaseClass {
     WebElement create;
     public WebElement getCreate(){
         return create;
+    }
+
+    @FindBy(id = "insuranceForm_plan")
+    WebElement insurancePlan;
+    public WebElement getInsurancePlan(){
+        return insurancePlan;
+    }
+
+    @FindBy(id = "insuranceForm_policy_number")
+    WebElement insurancePolicyNumber;
+    public WebElement getInsurancePolicyNumber(){
+        return insurancePolicyNumber;
+    }
+
+    @FindBy(id = "insuranceForm_phone")
+    WebElement insuranceMobile;
+    public WebElement getInsuranceMobile(){
+        return insuranceMobile;
+    }
+
+    @FindBy(id = "insuranceForm_fax")
+    WebElement fax;
+    public WebElement getFax(){
+        return fax;
+    }
+
+    @FindBy(id = "insuranceForm_copay_due")
+    WebElement copay;
+    public WebElement getCopay(){
+        return copay;
+    }
+
+    @FindBy(id = "insuranceForm_priority")
+    WebElement priority;
+    public WebElement getPriority(){
+        return priority;
+    }
+
+    @FindBy(id = "insuranceForm_contact")
+    WebElement contactPerson;
+    public WebElement getContactPerson(){
+        return contactPerson;
     }
 }

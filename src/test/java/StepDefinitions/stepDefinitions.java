@@ -119,7 +119,8 @@ public class stepDefinitions extends BaseClass {
     }
 
     @Then("Enters patient phone number")
-    public void entersPatientPhoneNumber() {
+    public void entersPatientPhoneNumber() throws InterruptedException {
+        Thread.sleep(1000);
         addPatient.getPhoneNumberField().sendKeys("+(1)(713) 644-" + randomNumber(4));
     }
 
@@ -310,7 +311,7 @@ public class stepDefinitions extends BaseClass {
     public void entersSalesManagerName() throws InterruptedException {
         wait(20).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"facilityForm\"]/div[2]/div[2]/div/div/div/div/div"))).click();
         Thread.sleep(400);
-//        addFacility.getSalesManager().sendKeys("Suaepqw");
+//        addFacility.getSalesManager().sendKeys("Omari");
         addFacility.getSalesManager().sendKeys(sharedatastep.ConsultantFirstName);
         Thread.sleep(6000);
         actionDown();
@@ -567,6 +568,15 @@ public class stepDefinitions extends BaseClass {
         wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
     }
 
+    @Then("Select wound position as {string}")
+    public void selectWoundPositionAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getWoundPosition().click();
+        Thread.sleep(300);
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+
+    }
+
     @Then("User fills in tissues affected if they have not been generated")
     public void userFillsInTissuesAffectedIfTheyHaveNotBeenGenerated() {
         String granulationTissue = patientAssessment.getGranularTissue().getAttribute("value");
@@ -612,6 +622,14 @@ public class stepDefinitions extends BaseClass {
     public void selectWoundConditionAs(String arg0) throws InterruptedException {
         Thread.sleep(300);
         patientAssessment.getWoundCondition().click();
+        Thread.sleep(300);
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Select wound dressing as {string}")
+    public void selectWoundDressingAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        patientAssessment.getWoundDressing().click();
         Thread.sleep(300);
         wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
     }
@@ -993,6 +1011,178 @@ public class stepDefinitions extends BaseClass {
         Thread.sleep(300);
         wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
     }
+
+    @Then("Add assessment for {string}")
+    public void addAssessmentFor(String arg0) throws InterruptedException {
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"main-body\"]/div/div[3]/div/div[1]/div[1]/div[2]/button"))).click();
+        implicitWait(2);
+        driver.findElement(By.xpath("//button[text()='Start Assessment']/preceding-sibling::div/div/span[2]")).click();
+        Thread.sleep(2000);
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+        verifySuccessMessageAlert("Updating wound procedures");
+        verifySuccessMessageAlert("Update complete");
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//p[text()='"+arg0+"']/following-sibling::button[text()='Start Assessment']")).click();
+    }
+
+
+    @Then("Click on newly created consultant")
+    public void clickOnNewlyCreatedConsultant() {
+        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='" + sharedatastep.ConsultantFirstName + " " + sharedatastep.ConsultantLastName + "']"))).click();
+//        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Omari Koch']"))).click();
+    }
+
+    @Then("Click + under vehicle details")
+    public void clickUnderVehicleDetails() throws InterruptedException {
+        Thread.sleep(1000);
+        wait(20).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[text()='Vehicle Details']/following-sibling::button"))).click();
+    }
+
+    @Then("Select vehicle make as {string}")
+    public void selectVehicleMakeAs(String arg0) throws InterruptedException {
+        Thread.sleep(1000);
+        addConsultant.getVehicleMake().click();
+        Thread.sleep(300);
+        wait(60).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+        actionTab();
+        Thread.sleep(2300);
+    }
+
+    @Then("Select vehicle model")
+    public void selectVehicleModel() throws InterruptedException {
+        addConsultant.getVehicleModel().click();
+        Thread.sleep(300);
+        actionDown();
+        actionEnter();
+        Thread.sleep(300);
+    }
+
+    @Then("Enter vehicle year")
+    public void enterVehicleYear() throws InterruptedException {
+        addConsultant.getVehicleYear().sendKeys("2020");
+        Thread.sleep(200);
+        actionEnter();
+    }
+
+    @Then("Select fuel type")
+    public void selectFuelType() throws InterruptedException {
+        addConsultant.getVehicleFuel().click();
+        Thread.sleep(300);
+        actionDown();
+        actionEnter();
+        Thread.sleep(300);
+    }
+
+    @Then("Enter registration number")
+    public void enterRegistrationNumber() throws InterruptedException {
+        Thread.sleep(500);
+        addConsultant.getVehicleReg().sendKeys("KDB "+randomNumber(4));
+    }
+
+    @Then("Click save to add vehicle details")
+    public void clickSaveToAddVehicleDetails() throws InterruptedException {
+        Thread.sleep(300);
+        addConsultant.getVehicleSave().click();
+    }
+
+    @Then("Click on newly created facility")
+    public void clickOnNewlyCreatedFacility() {
+//        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[text()='" + sharedatastep.FacilityName + "']"))).click();
+        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[text()='Rohan Group']"))).click();
+    }
+
+    @Then("Click + under documents")
+    public void clickUnderDocuments() throws InterruptedException {
+        Thread.sleep(1000);
+        wait(20).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Documents:']/following-sibling::button"))).click();
+    }
+
+    @Then("Enter document title as {string} and select document type as {string}")
+    public void enterDocumentTitleAsAndSelectDocumentTypeAs(String arg0, String arg1) throws InterruptedException {
+        Thread.sleep(300);
+        addFacility.getFacilityDocumentTitle().sendKeys(arg0);
+        Thread.sleep(300);
+        addFacility.getFacilityDocumentType().click();
+        Thread.sleep(300);
+        wait(60).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg1 + "')]//div[text()='" + arg1 + "']"))).click();
+    }
+
+    @Then("Upload facility document")
+    public void uploadFacilityDocument() throws InterruptedException {
+        addFacility.getUploadButton().sendKeys(filepath);
+        Thread.sleep(4000);
+    }
+
+    @Then("Click add to add facility document")
+    public void clickAddToAddFacilityDocument() {
+        driver.findElement(By.xpath("//button[text()='Add']")).click();
+    }
+
+    @Then("Click on newly created patient")
+    public void clickOnNewlyCreatedPatient() {
+//        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='" + sharedatastep.PatientFirstName + " " + sharedatastep.PatientLastName + "']"))).click();
+        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Andrian Andrew']"))).click();
+    }
+
+    @Then("Click + under insurance information")
+    public void clickUnderInsuranceInformation() throws InterruptedException {
+        Thread.sleep(1000);
+        wait(20).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[text()='Insurance Information']/following-sibling::button"))).click();
+    }
+
+    @Then("Enter Insurance plan as {string}")
+    public void enterInsurancePlanAs(String arg0) {
+        implicitWait(1);
+        addPatient.getInsurancePlan().sendKeys(arg0);
+    }
+
+    @Then("Enter policy number")
+    public void enterPolicyNumber() throws InterruptedException {
+        Thread.sleep(300);
+        addPatient.getInsurancePolicyNumber().sendKeys(randomNumber(5));
+    }
+
+    @Then("Enter phone number")
+    public void enterPhoneNumber() throws InterruptedException {
+        Thread.sleep(300);
+        addPatient.getInsuranceMobile().sendKeys("+(1)(713) 644-" + randomNumber(4));
+    }
+
+    @Then("Enter fax")
+    public void enterFax() throws InterruptedException {
+        Thread.sleep(300);
+        addPatient.getFax().sendKeys("+5 (655) " + randomNumber(3)+ " " + randomNumber(4));
+    }
+
+    @Then("Enter copay due")
+    public void enterCopayDue() throws InterruptedException {
+        Thread.sleep(300);
+        addPatient.getCopay().sendKeys("12000");
+    }
+
+    @Then("Select priority")
+    public void selectPriority() throws InterruptedException {
+        Thread.sleep(300);
+        addPatient.getPriority().click();
+        Thread.sleep(300);
+        actionDown();
+        actionEnter();
+        Thread.sleep(300);
+    }
+
+    @Then("Enter contact person name")
+    public void enterContactPersonName() throws InterruptedException {
+        Thread.sleep(300);
+        addPatient.getContactPerson().sendKeys("Maxipain Codei");
+    }
+
+    @Then("Save Insurance Information")
+    public void saveInsuranceInformation() throws InterruptedException {
+        Thread.sleep(300);
+        driver.findElement(By.xpath("//button[text()='Save']")).click();
+    }
+
+
 }
 
 

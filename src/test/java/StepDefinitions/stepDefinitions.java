@@ -4,6 +4,7 @@ import Pages.*;
 import Pages.AddPatient;
 import com.github.javafaker.Faker;
 import dataProvider.ConfigFileReader;
+import gherkin.lexer.Th;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -1087,8 +1088,8 @@ public class stepDefinitions extends BaseClass {
 
     @Then("Click on newly created facility")
     public void clickOnNewlyCreatedFacility() {
-//        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[text()='" + sharedatastep.FacilityName + "']"))).click();
-        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[text()='Rohan Group']"))).click();
+        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[text()='" + sharedatastep.FacilityName + "']"))).click();
+//        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[text()='Rohan Group']"))).click();
     }
 
     @Then("Click + under documents")
@@ -1120,8 +1121,8 @@ public class stepDefinitions extends BaseClass {
 
     @Then("Click on newly created patient")
     public void clickOnNewlyCreatedPatient() {
-//        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='" + sharedatastep.PatientFirstName + " " + sharedatastep.PatientLastName + "']"))).click();
-        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Andrian Andrew']"))).click();
+        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='" + sharedatastep.PatientFirstName + " " + sharedatastep.PatientLastName + "']"))).click();
+//        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Andrian Andrew']"))).click();
     }
 
     @Then("Click + under insurance information")
@@ -1183,6 +1184,116 @@ public class stepDefinitions extends BaseClass {
     }
 
 
+    @Then("Click edit under contact information")
+    public void clickEditUnderContactInformation() throws InterruptedException {
+        Thread.sleep(1000);
+        wait(20).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[text()='Additional Contacts']/following-sibling::button"))).click();
+    }
+
+    @Then("Enter patient contact full names")
+    public void enterPatientContactFullNames() throws InterruptedException {
+        Thread.sleep(300);
+        addPatient.getPatientContactNames().clear();
+        addPatient.getPatientContactNames().sendKeys(faker.name().firstName()+" "+faker.name().lastName());
+    }
+
+    @Then("Enter patient contact phone number")
+    public void enterPatientContactPhoneNumber() throws InterruptedException {
+        Thread.sleep(300);
+        addPatient.getPatientContactMobile().clear();
+        addPatient.getPatientContactMobile().sendKeys("+(1)(713) 644-" + randomNumber(4));
+    }
+
+    @Then("Save patient contact information")
+    public void savePatientContactInformation() throws InterruptedException {
+        Thread.sleep(300);
+        driver.findElement(By.xpath("//button[text()='Save']")).click();
+    }
+
+    @Then("Click + under shipping address")
+    public void clickUnderShippingAddress() throws InterruptedException {
+        Thread.sleep(500);
+        wait(20).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[text()='Shipping Address']/following-sibling::button"))).click();
+    }
+
+    @Then("Enter patient shipping address as {string}")
+    public void enterPatientShippingAddressAs(String arg0) throws InterruptedException {
+        addPatient.getAddressField().sendKeys(arg0);
+        Thread.sleep(2000);
+        actionEnter();
+    }
+
+    @Then("Enter patient physical address as {string}")
+    public void enterPatientPhysicalAddressAs(String arg0) throws InterruptedException {
+        Thread.sleep(500);
+        addPatient.getPatientPhysicalAddress().sendKeys(arg0);
+    }
+
+    @Then("Save patient shipping address")
+    public void savePatientShippingAddress() throws InterruptedException {
+        Thread.sleep(300);
+        driver.findElement(By.xpath("//button[text()='Save']")).click();
+    }
+
+    @Then("Click patient documents tab")
+    public void clickPatientDocumentsTab() {
+        wait(20).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div//p[text()='Documents']"))).click();
+    }
+
+    @Then("Click + under patient documents")
+    public void clickUnderPatientDocuments() throws InterruptedException {
+        Thread.sleep(300);
+        wait(20).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[text()='Documents']/following-sibling::button"))).click();
+    }
+
+    @Then("Enter patient document title as {string}")
+    public void enterPatientDocumentTitleAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        wait(20).until(ExpectedConditions.visibilityOf(addPatient.getPatientDocumentTitle())).sendKeys(arg0);
+    }
+
+    @Then("Select patient document type as {string}")
+    public void selectPatientDocumentTypeAs(String arg0) throws InterruptedException {
+        Thread.sleep(300);
+        addPatient.getPatientDocumentType().click();
+        Thread.sleep(300);
+        wait(60).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Upload patient document")
+    public void uploadPatientDocument() throws InterruptedException {
+        Thread.sleep(300);
+        addPatient.getPatientDocumentUpload().sendKeys(filepath);
+        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='document.pdf']"))).isDisplayed();
+        Thread.sleep(2000);
+    }
+
+    @Then("Click add to add patient document")
+    public void clickAddToAddPatientDocument() {
+        driver.findElement(By.xpath("//button[text()='Add']")).click();
+    }
+
+    @Then("Click patient internal notes tab")
+    public void clickPatientInternalNotesTab() {
+        wait(20).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div//p[text()='Internal Notes']"))).click();
+    }
+
+    @Then("Click + under internal notes")
+    public void clickUnderInternalNotes() throws InterruptedException {
+        Thread.sleep(300);
+        wait(20).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"main-body\"]/div/div[3]/div/div/div[1]/div/div/div/button"))).click();
+    }
+
+    @Then("Enter patient notes")
+    public void enterPatientNotes() throws InterruptedException {
+        Thread.sleep(300);
+        wait(20).until(ExpectedConditions.visibilityOf(addPatient.getPatientNotes())).sendKeys("Notes are this here");
+    }
+
+    @Then("Click add to add patient notes")
+    public void clickAddToAddPatientNotes() {
+        driver.findElement(By.xpath("//button[text()='Add']")).click();
+    }
 }
 
 

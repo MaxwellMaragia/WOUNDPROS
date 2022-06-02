@@ -58,7 +58,7 @@ public class AddPatient extends BaseClass {
         return ssnField;
     }
 
-    @FindBy(id = "insuranceForm_contact")
+    @FindBy(id = "new-patient_phone_no")
     WebElement phoneNumberField;
     public WebElement getPhoneNumberField(){
         return phoneNumberField;
@@ -129,4 +129,47 @@ public class AddPatient extends BaseClass {
     public WebElement getContactPerson(){
         return contactPerson;
     }
+
+    @FindBy(id = "new-patient_primary_family_member_name")
+    WebElement patientContactNames;
+    public WebElement getPatientContactNames(){
+        return patientContactNames;
+    }
+
+    @FindBy(id = "new-patient_primary_family_member_phone")
+    WebElement patientContactMobile;
+    public WebElement getPatientContactMobile(){
+        return patientContactMobile;
+    }
+
+    @FindBy(id = "new-patient_physical_address")
+    WebElement patientPhysicalAddress;
+    public WebElement getPatientPhysicalAddress(){
+        return patientPhysicalAddress;
+    }
+
+    @FindBy(id = "faceSheetForm_title")
+    WebElement patientDocumentTitle;
+    public WebElement getPatientDocumentTitle(){
+        return patientDocumentTitle;
+    }
+
+    @FindBy(id = "faceSheetForm_type")
+    WebElement patientDocumentType;
+    public WebElement getPatientDocumentType(){
+        return patientDocumentType;
+    }
+
+    @FindBy(xpath = "//button[span='Upload']/preceding-sibling::input")
+    WebElement patientDocumentUpload;
+    public WebElement getPatientDocumentUpload(){
+        return patientDocumentUpload;
+    }
+
+    @FindBy(id = "new-progress-note_notes")
+    WebElement patientNotes;
+    public WebElement getPatientNotes(){
+        return patientNotes;
+    }
+
 }

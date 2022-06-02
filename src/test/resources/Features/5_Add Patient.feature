@@ -6,7 +6,7 @@ Feature: Verify the process of adding a patient
     And Click on login button
     Then User should be logged in with success message "Login success"
 
-  @AddPatient @AddPatientCard @sanity @PatientAssessmentWoundDebridement @PatientAssessmentPodiatry @PatientAssessmentDME @PatientAssessmentBiologic
+  @AddPatient @AddPatientCard @sanity @registration
   Scenario: Validate add patient test
     Given User clicks on patient menu from dashboard
     Then User clicks add patient button

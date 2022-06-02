@@ -6,7 +6,7 @@ Feature: Verify the process of adding a consultant
     And Click on login button
     Then User should be logged in with success message "Login success"
 
-  @AddConsultant @AddConsultantCard @sanity @PatientAssessmentWoundDebridement @PatientAssessmentPodiatry @PatientAssessmentDME @PatientAssessmentBiologic
+  @AddConsultant @AddConsultantCard @sanity @registration
   Scenario: Validate add consultant test
     Given User clicks on consultant menu from dashboard
     Then User clicks add consultant button

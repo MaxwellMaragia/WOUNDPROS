@@ -6,7 +6,7 @@ Feature: Verify the process of adding a facility documents
     And Click on login button
     Then User should be logged in with success message "Login success"
 
-  @addFacility @addFacilityDocument
+  @addFacility @addFacilityDocument @registration
   Scenario: Validate add facility document
     Given User clicks on facility menu from dashboard
     Then Click on newly created facility

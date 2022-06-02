@@ -6,7 +6,7 @@ Feature: Verify the process of adding consultant card details
     And Click on login button
     Then User should be logged in with success message "Login success"
 
-  @AddConsultant @AddConsultantCard @sanity
+  @AddConsultant @AddConsultantCard @sanity @registration
   Scenario: Validate add consultant Vehicle details
     Given User clicks on consultant menu from dashboard
     Then Click on newly created consultant

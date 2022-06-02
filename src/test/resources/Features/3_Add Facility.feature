@@ -6,7 +6,7 @@ Feature: Verify the process of adding a facility
     And Click on login button
     Then User should be logged in with success message "Login success"
 
-  @addFacility @addFacilityDocument @sanity @PatientAssessmentWoundDebridement @PatientAssessmentPodiatry @PatientAssessmentDME @PatientAssessmentBiologic
+  @addFacility @addFacilityDocument @sanity @registration
   Scenario: Validate add facility test
     Given User clicks on facility menu from dashboard
     Then User clicks add facility button

@@ -127,8 +127,11 @@ public class stepDefinitions extends BaseClass {
 
     @Then("Selects Facility")
     public void selectsFacility() throws InterruptedException {
+
+        if(sharedatastep.FacilityName==null){
+            sharedatastep.FacilityName = "Xfuookv";
+        }
         wait(20).until(ExpectedConditions.visibilityOf(addPatient.getFacilityField()));
-//        addFacility.getSalesManager().sendKeys("Xfuookv");
         addPatient.getFacilityField().sendKeys(sharedatastep.FacilityName);
         Thread.sleep(6000);
         actionDown();
@@ -310,9 +313,12 @@ public class stepDefinitions extends BaseClass {
 
     @Then("Enters Sales manager name")
     public void entersSalesManagerName() throws InterruptedException {
+        if(sharedatastep.ConsultantFirstName==null){
+            sharedatastep.ConsultantFirstName = "Omari";
+        }
         wait(20).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"facilityForm\"]/div[2]/div[2]/div/div/div/div/div"))).click();
         Thread.sleep(400);
-//        addFacility.getSalesManager().sendKeys("Omari");
+
         addFacility.getSalesManager().sendKeys(sharedatastep.ConsultantFirstName);
         Thread.sleep(6000);
         actionDown();
@@ -395,8 +401,12 @@ public class stepDefinitions extends BaseClass {
 
     @Then("User selects newly created patient")
     public void userSelectsNewlyCreatedPatient() {
+        if(sharedatastep.PatientFirstName==null && sharedatastep.PatientLastName==null){
+            sharedatastep.PatientFirstName = "Gaston";
+            sharedatastep.PatientLastName = "Schamberger";
+        }
         wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='" + sharedatastep.PatientFirstName + " " + sharedatastep.PatientLastName + "']"))).click();
-//        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Hubert Carroll']"))).click();
+
     }
 
     @Then("User clicks add appointment button")
@@ -428,8 +438,11 @@ public class stepDefinitions extends BaseClass {
 
     @Then("User Selects newly created consultant")
     public void userSelectsNewlyCreatedConsultant() throws InterruptedException {
-        addAppointment.getConsultantField().sendKeys(sharedatastep.ConsultantFirstName);
-//        addAppointment.getConsultantField().sendKeys("Melanie Ping");
+        if(sharedatastep.ConsultantFirstName==null){
+            addAppointment.getConsultantField().sendKeys("Melanie Ping");
+        }else{
+            addAppointment.getConsultantField().sendKeys(sharedatastep.ConsultantFirstName);
+        }
         Thread.sleep(4000);
         actionDown();
         Thread.sleep(600);
@@ -493,9 +506,8 @@ public class stepDefinitions extends BaseClass {
     public void selectWoundStatusAs(String arg0) throws InterruptedException {
         wait(50).until(ExpectedConditions.visibilityOf(patientAssessment.getWoundStatus())).click();
         Thread.sleep(1000);
-//        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='"+arg0+"']"))).click();
-        actionDown();
-        actionEnter();
+        wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+        Thread.sleep(700);
     }
 
     @Then("Upload image wound")
@@ -563,7 +575,7 @@ public class stepDefinitions extends BaseClass {
 
     @Then("Select wound side as {string}")
     public void selectWoundSideAs(String arg0) throws Throwable {
-        Thread.sleep(300);
+        Thread.sleep(1000);
         patientAssessment.getWoundSide().click();
         Thread.sleep(300);
         wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
@@ -638,6 +650,7 @@ public class stepDefinitions extends BaseClass {
     @Then("Select response to therapy as {string}")
     public void selectResponseToTherapyAs(String arg0) throws InterruptedException {
         Thread.sleep(300);
+        scrollIntoView(wait(30).until(ExpectedConditions.visibilityOf(patientAssessment.getTherapyResponse())));
         patientAssessment.getTherapyResponse().click();
         Thread.sleep(300);
         wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
@@ -784,7 +797,8 @@ public class stepDefinitions extends BaseClass {
     }
 
     @Then("Click get treatment button")
-    public void clickGetTreatmentButton() {
+    public void clickGetTreatmentButton() throws InterruptedException {
+        Thread.sleep(5000);
         patientAssessment.getGetTreatment().click();
     }
 
@@ -793,7 +807,8 @@ public class stepDefinitions extends BaseClass {
         Thread.sleep(300);
         patientAssessment.getTreatmentScenario().click();
         Thread.sleep(300);
-        patientAssessment.getTreatmentScenario().sendKeys(arg0);
+        patientAssessment.getTreatmentScenario().sendKeys("HOME HEALTH Lower extremities with LARGE size ABD PAD");
+        Thread.sleep(300);
         wait(60).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
     }
 
@@ -824,8 +839,16 @@ public class stepDefinitions extends BaseClass {
 
     @Then("Click create assessment button")
     public void clickCreateAssessmentButton() throws InterruptedException {
+        wait(20).until(ExpectedConditions.visibilityOf(patientAssessment.getCreateAssessment())).isDisplayed();
         Thread.sleep(3000);
-        patientAssessment.getCreateAssessment().click();
+        wait(20).until(ExpectedConditions.visibilityOf(patientAssessment.getCreateAssessment())).click();
+    }
+
+
+    @Then("Click update assessment button")
+    public void clickUpdateAssessmentButton() throws InterruptedException {
+        Thread.sleep(3000);
+        patientAssessment.getUpdateAssessment().click();
     }
 
 
@@ -851,9 +874,29 @@ public class stepDefinitions extends BaseClass {
         patientAssessment.getPostDebridementDepth().sendKeys("2");
     }
 
+    @Then("Add anaesthesia used as {string}")
+    public void addAnaesthesiaUsedAs(String arg0) throws InterruptedException {
+        wait(30).until(ExpectedConditions.visibilityOf(patientAssessment.getAnaesthesiaUsed())).isDisplayed();
+        Thread.sleep(3000);
+        patientAssessment.getAnaesthesiaUsed().click();
+        wait(60).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+
+    }
+
+    @Then("Add debridement type as {string}")
+    public void addDebridementTypeAs(String arg0) throws InterruptedException {
+        wait(30).until(ExpectedConditions.visibilityOf(patientAssessment.getDebridementType())).isDisplayed();
+        Thread.sleep(3000);
+        patientAssessment.getDebridementType().click();
+        wait(60).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+        Thread.sleep(1000);
+        actionTab();
+    }
+
     @Then("Add Vascular measurements")
     public void addVascularMeasurements() throws InterruptedException {
-        Thread.sleep(200);
+        wait(30).until(ExpectedConditions.visibilityOf(patientAssessment.getRightDp())).isDisplayed();
+        Thread.sleep(1000);
         patientAssessment.getRightDp().click();
         Thread.sleep(200);
         actionDown();
@@ -971,7 +1014,7 @@ public class stepDefinitions extends BaseClass {
         actionDown();
         actionEnter();
         Thread.sleep(300);
-        patientAssessment.getQuantity().sendKeys(arg0);
+//        patientAssessment.getQuantity().sendKeys(arg0);
     }
 
     @Then("Add circulation and neurologic status")
@@ -1007,7 +1050,9 @@ public class stepDefinitions extends BaseClass {
 
     @Then("Select treatment number {string}")
     public void selectTreatmentNumber(String arg0) throws InterruptedException {
-        Thread.sleep(300);
+
+        wait(30).until(ExpectedConditions.visibilityOf(patientAssessment.getTreatmentNumber())).isDisplayed();
+        Thread.sleep(2000);
         patientAssessment.getTreatmentNumber().click();
         Thread.sleep(300);
         wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
@@ -1023,7 +1068,7 @@ public class stepDefinitions extends BaseClass {
         verifySuccessMessageAlert("Updating wound procedures");
         verifySuccessMessageAlert("Update complete");
         Thread.sleep(1000);
-        driver.findElement(By.xpath("//p[text()='"+arg0+"']/following-sibling::button[text()='Start Assessment']")).click();
+//        driver.findElement(By.xpath("//p[text()='"+arg0+"']/following-sibling::button[text()='Start Assessment']")).click();
     }
 
 
@@ -1088,8 +1133,10 @@ public class stepDefinitions extends BaseClass {
 
     @Then("Click on newly created facility")
     public void clickOnNewlyCreatedFacility() {
+        if(sharedatastep.FacilityName==null){
+            sharedatastep.FacilityName = "Xfuookv";
+        }
         wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[text()='" + sharedatastep.FacilityName + "']"))).click();
-//        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[text()='Rohan Group']"))).click();
     }
 
     @Then("Click + under documents")
@@ -1121,8 +1168,11 @@ public class stepDefinitions extends BaseClass {
 
     @Then("Click on newly created patient")
     public void clickOnNewlyCreatedPatient() {
+        if(sharedatastep.PatientFirstName==null && sharedatastep.PatientLastName==null){
+            sharedatastep.PatientFirstName = "Gaston";
+            sharedatastep.PatientLastName = "Schamberger";
+        }
         wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='" + sharedatastep.PatientFirstName + " " + sharedatastep.PatientLastName + "']"))).click();
-//        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='Andrian Andrew']"))).click();
     }
 
     @Then("Click + under insurance information")
@@ -1294,6 +1344,13 @@ public class stepDefinitions extends BaseClass {
     public void clickAddToAddPatientNotes() {
         driver.findElement(By.xpath("//button[text()='Add']")).click();
     }
+
+    @Then("Start assessment for {string}")
+    public void startAssessmentFor(String arg0) {
+        wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='"+arg0+"']/following-sibling::button[text()='Start Assessment']"))).click();
+    }
+
+
 }
 
 

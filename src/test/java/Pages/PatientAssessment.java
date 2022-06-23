@@ -16,7 +16,7 @@ public class PatientAssessment extends BaseClass {
         return assessmentButton;
     }
 
-    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[2]/div[3]/div/div[2]/div/div/div/div/span[2]")
+    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[2]/div[5]/div/div[2]/div/div/div/div/span[2]")
     WebElement woundStatus;
     public WebElement getWoundStatus(){
         return woundStatus;
@@ -100,13 +100,14 @@ public class PatientAssessment extends BaseClass {
         return exudateAmount;
     }
 
-    @FindBy(id = "new-asssessment_wound_side")
+//    @FindBy(id = "new-asssessment_wound_side")
+    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[2]/div[2]/div/div[2]/div/div/div/div/span[2]")
     WebElement woundSide;
     public WebElement getWoundSide(){
         return woundSide;
     }
 
-    @FindBy(id = "new-asssessment_wound_position")
+    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[2]/div[3]/div/div[2]/div/div/div/div/span[2]")
     WebElement woundPosition;
     public WebElement getWoundPosition(){
         return woundPosition;
@@ -166,7 +167,7 @@ public class PatientAssessment extends BaseClass {
         return woundDressing;
     }
 
-    @FindBy(id = "new-asssessment_response_to_therapy")
+    @FindBy(xpath = "//*[@id=\"#1\"]/div[12]/div/div[2]/div/div/div/div")
     WebElement therapyResponse;
     public WebElement getTherapyResponse(){
         return therapyResponse;
@@ -316,6 +317,12 @@ public class PatientAssessment extends BaseClass {
         return createAssessment;
     }
 
+    @FindBy(xpath = "//button[text()='Update Assessment']")
+    WebElement updateAssessment;
+    public WebElement getUpdateAssessment(){
+        return updateAssessment;
+    }
+
     @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[2]/div[1]/div/div[2]/div/div/div")
     WebElement procedueDropdown;
     public WebElement getProcedueDropdown(){
@@ -340,85 +347,85 @@ public class PatientAssessment extends BaseClass {
         return postDebridementDepth;
     }
 
-    @FindBy(id = "new-asssessment_right_d_p")
+    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[13]/div[1]/div/div[2]/div/div/div/div")
     WebElement rightDp;
     public WebElement getRightDp(){
         return rightDp;
     }
 
-    @FindBy(id = "new-asssessment_left_d_p")
+    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[13]/div[2]/div/div[2]/div/div/div/div")
     WebElement leftDp;
     public WebElement getLeftDp(){
         return leftDp;
     }
 
-    @FindBy(id = "new-asssessment_right_p_t")
+    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[13]/div[3]/div/div[2]/div/div/div/div")
     WebElement rightPt;
     public WebElement getRightPt(){
         return rightPt;
     }
 
-    @FindBy(id = "new-asssessment_left_p_t")
+    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[13]/div[4]/div/div[2]/div/div/div/div")
     WebElement leftPt;
     public WebElement getLeftPt(){
         return leftPt;
     }
 
-    @FindBy(id = "new-asssessment_skin_temperature_right")
+    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[13]/div[5]/div/div[2]/div/div/div/div")
     WebElement skinTemperatureRight;
     public WebElement getSkinTemperatureRight(){
         return skinTemperatureRight;
     }
 
-    @FindBy(id = "new-asssessment_skin_temperature_left")
+    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[13]/div[6]/div/div[2]/div/div/div/div")
     WebElement skinTemperatureLeft;
     public WebElement getSkinTemperatureLeft(){
         return skinTemperatureLeft;
     }
 
-    @FindBy(id = "new-asssessment_digital_hair_right")
+    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[13]/div[7]/div/div[2]/div/div/div/div")
     WebElement digitalHairRight;
     public WebElement getDigitalHairRight(){
         return digitalHairRight;
     }
 
-    @FindBy(id = "new-asssessment_digital_hair_left")
+    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[13]/div[8]/div/div[2]/div/div/div/div")
     WebElement digitalHairLeft;
     public WebElement getDigitalHairLeft(){
         return digitalHairLeft;
     }
 
-    @FindBy(id = "new-asssessment_monofilament_testing_right")
+    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[15]/div[1]/div/div[2]/div/div/div/div")
     WebElement monofilamentTestingRight;
     public WebElement getMonofilamentTestingRight(){
         return monofilamentTestingRight;
     }
 
-    @FindBy(id = "new-asssessment_monofilament_testing_left")
+    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[15]/div[2]/div/div[2]/div/div/div/div")
     WebElement monofilamentTestingLeft;
     public WebElement getMonofilamentTestingLeft(){
         return monofilamentTestingLeft;
     }
 
-    @FindBy(id = "new-asssessment_pin_prick_right")
+    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[15]/div[3]/div/div[2]/div/div/div/div")
     WebElement pinPrickRight;
     public WebElement getPinPrickRight(){
         return pinPrickRight;
     }
 
-    @FindBy(id = "new-asssessment_pin_prick_left")
+    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[15]/div[4]/div/div[2]/div/div/div/div")
     WebElement pinPrickLeft;
     public WebElement getPinPrickLeft(){
         return pinPrickLeft;
     }
 
-    @FindBy(id = "new-asssessment_soft_touch_right")
+    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[15]/div[5]/div/div[2]/div/div/div/div")
     WebElement softTouchRight;
     public WebElement getSoftTouchRight(){
         return softTouchRight;
     }
 
-    @FindBy(id = "new-asssessment_soft_touch_left")
+    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[15]/div[6]/div/div[2]/div/div/div/div")
     WebElement softTouchLeft;
     public WebElement getSoftTouchLeft(){
         return softTouchLeft;
@@ -430,7 +437,7 @@ public class PatientAssessment extends BaseClass {
         return biologic;
     }
 
-    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[8]/div[2]/div[2]/div/div[1]/div/div[1]/div[1]/div/div/div/div/div/div")
+    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[10]/div[2]/div[2]/div/div[1]/div/div[1]/div/div/div/div/div/div/div")
     WebElement graftsize;
     public WebElement getGraftsize(){
         return graftsize;
@@ -442,13 +449,13 @@ public class PatientAssessment extends BaseClass {
         return quantity;
     }
 
-    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[15]/div[1]/div/div[2]/div/div/div")
+    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[16]/div[1]/div/div[2]/div/div/div/div")
     WebElement circulation;
     public WebElement getCirculation(){
         return circulation;
     }
 
-    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[15]/div[2]/div/div[2]/div/div/div")
+    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[16]/div[2]/div/div[2]/div/div/div/div")
     WebElement neurologic;
     public WebElement getNeurologic(){
         return neurologic;
@@ -466,9 +473,17 @@ public class PatientAssessment extends BaseClass {
         return physician;
     }
 
-    @FindBy(id = "new-asssessment_treatment_number")
+    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[2]/div[6]/div/div[2]/div/div/div/div")
     WebElement treatmentNumber;
     public WebElement getTreatmentNumber(){
         return treatmentNumber;
     }
+
+    @FindBy(xpath = "//*[@id=\"#1\"]/div[12]/div/div[2]/div/div/div/div")
+    WebElement anaesthesiaUsed;
+    public WebElement getAnaesthesiaUsed() { return anaesthesiaUsed; }
+
+    @FindBy(xpath = "//*[@id=\"#1\"]/div[27]/div/div[2]/div/div/div/div/div")
+    WebElement debridementType;
+    public WebElement getDebridementType() { return debridementType; }
 }

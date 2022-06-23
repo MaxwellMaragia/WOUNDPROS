@@ -6,7 +6,7 @@ Feature: Verify the process of scheduling an appointment
     And Click on login button
     Then User should be logged in with success message "Login success"
 
-  @AddAppointment @sanity @PatientAssessmentWoundDebridement @PatientAssessmentPodiatry @PatientAssessmentDME @PatientAssessmentBiologic
+  @AddAppointment @sanity
   Scenario: Validate add appointment test
     Given User clicks on patient menu from dashboard
     Then User selects newly created patient

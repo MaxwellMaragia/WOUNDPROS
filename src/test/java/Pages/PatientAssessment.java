@@ -479,6 +479,18 @@ public class PatientAssessment extends BaseClass {
         return treatmentNumber;
     }
 
+    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[3]/div/div/div[2]/div/div/div/div")
+    WebElement previousEvaluation;
+    public WebElement getPreviousEvaluation(){
+        return previousEvaluation;
+    }
+
+    @FindBy(xpath = "//*[@id=\"appointmentForm\"]/div/div[11]/div[2]/div[2]/div/div[1]/div/div[1]/div[3]/div/div/div/div/span/div/span/button")
+    WebElement graftDetails;
+    public WebElement getGraftDetails(){
+        return graftDetails;
+    }
+
     @FindBy(xpath = "//*[@id=\"#1\"]/div[12]/div/div[2]/div/div/div/div")
     WebElement anaesthesiaUsed;
     public WebElement getAnaesthesiaUsed() { return anaesthesiaUsed; }

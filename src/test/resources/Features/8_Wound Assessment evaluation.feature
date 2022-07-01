@@ -6,7 +6,7 @@ Feature: Evaluation for wound assessment
     And Click on login button
     Then User should be logged in with success message "Login success"
 
-  @WoundAssessment @sanity
+  @WoundAssessment @sanity @Assessment
   Scenario: Validate the process of wound assessment evaluation
     Given User clicks on patient menu from dashboard
     Then User selects newly created patient

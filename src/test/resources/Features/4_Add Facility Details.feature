@@ -12,7 +12,7 @@ Feature: Verify the process of adding a facility documents
     Then Click on newly created facility
     Then Click + under documents
     Then Enter document title as "Business Registration Letter" and select document type as "Document"
-    Then Upload facility document
+    Then Upload facility document in update facility screen
     Then Click add to add facility document
     Then Verify success message alert "Document added successfully"
     Then Verify success message alert "Facility update successful"

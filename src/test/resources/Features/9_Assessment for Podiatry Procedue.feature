@@ -6,7 +6,7 @@ Feature: Verify the process of patient assessment for Podiatry Procedure
     And Click on login button
     Then User should be logged in with success message "Login success"
 
-  @PatientAssessmentPodiatry @sanity
+  @PatientAssessmentPodiatry @sanity @Assessment
   Scenario: Validate the process of patient assessment for Podiatry procedure
     Given User clicks on patient menu from dashboard
     Then User selects newly created patient

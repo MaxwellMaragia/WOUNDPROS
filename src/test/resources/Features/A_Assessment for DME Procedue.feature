@@ -6,7 +6,7 @@ Feature: Verify the process of patient assessment for DME Procedure
     And Click on login button
     Then User should be logged in with success message "Login success"
 
-  @PatientAssessmentDME @sanity
+  @PatientAssessmentDME @sanity @Assessment
   Scenario: Validate the process of patient assessment for DME procedure
     Given User clicks on patient menu from dashboard
     Then User selects newly created patient
@@ -18,7 +18,8 @@ Feature: Verify the process of patient assessment for DME Procedure
     Then Click get treatment button
     Then Verify success message alert "creating Assessment"
     Then Verify success message alert "Assessment created"
-    Then Select treatment scenario as "28HH -HOME HEALTH Lower extremities with LARGE size ABD PAD"
+#    Then Select treatment scenario as "28HH -HOME HEALTH Lower extremities with LARGE size ABD PAD"
+    Then Select treatment scenario as "68-WP"
 #    Then Add treatment order item "A6449 Profore Latex Free Bandage System"
     Then Wait until treatment order item is generated "A6446 Bulk Roll Gauze"
 #    Then Add plan of care as "Pat dry with gauze"

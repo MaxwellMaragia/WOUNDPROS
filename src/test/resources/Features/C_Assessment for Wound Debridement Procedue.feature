@@ -6,7 +6,7 @@ Feature: Verify the process of patient assessment for Wound Debridement Procedur
     And Click on login button
     Then User should be logged in with success message "Login success"
 
-  @PatientAssessmentWoundDebridement @sanity
+  @PatientAssessmentWoundDebridement @sanity @Assessment
   Scenario: Validate the process of patient assessment for Wound Debridement procedure
     Given User clicks on patient menu from dashboard
     Then User selects newly created patient
@@ -19,7 +19,7 @@ Feature: Verify the process of patient assessment for Wound Debridement Procedur
     Then Add Neurology measurements
     Then Click create assessment button
     Then Verify success message alert "creating Assessment"
-    Then Verify success message alert "assessment Created"
+#    Then Verify success message alert "assessment Created"
 
 
 

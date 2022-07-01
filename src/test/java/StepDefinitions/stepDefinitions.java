@@ -398,12 +398,11 @@ public class stepDefinitions extends BaseClass {
         assertEquals(sharedatastep.FacilityName, Actual);
     }
 
-
     @Then("User selects newly created patient")
     public void userSelectsNewlyCreatedPatient() {
         if(sharedatastep.PatientFirstName==null && sharedatastep.PatientLastName==null){
-            sharedatastep.PatientFirstName = "Gaston";
-            sharedatastep.PatientLastName = "Schamberger";
+            sharedatastep.PatientFirstName = "Rhianna";
+            sharedatastep.PatientLastName = "Legros";
         }
         wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='" + sharedatastep.PatientFirstName + " " + sharedatastep.PatientLastName + "']"))).click();
 
@@ -807,9 +806,9 @@ public class stepDefinitions extends BaseClass {
         Thread.sleep(300);
         patientAssessment.getTreatmentScenario().click();
         Thread.sleep(300);
-        patientAssessment.getTreatmentScenario().sendKeys("HOME HEALTH Lower extremities with LARGE size ABD PAD");
+        patientAssessment.getTreatmentScenario().sendKeys(arg0);
         Thread.sleep(300);
-        wait(60).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+        wait(60).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '"+arg0+"')]//div[contains(text(), '"+arg0+"')]"))).click();
     }
 
     @Then("Add treatment order item {string}")
@@ -1058,6 +1057,26 @@ public class stepDefinitions extends BaseClass {
         wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
     }
 
+    @Then("Select previous evaluation date")
+    public void selectPreviousEvaluationDate() throws InterruptedException {
+        wait(20).until(ExpectedConditions.visibilityOf(patientAssessment.getPreviousEvaluation())).isDisplayed();
+        Thread.sleep(3000);
+        patientAssessment.getPreviousEvaluation().click();
+        Thread.sleep(200);
+        actionDown();
+        actionEnter();
+    }
+
+
+    @Then("Upload graft details")
+    public void uploadGraftDetails() throws Throwable{
+         wait(40).until(ExpectedConditions.visibilityOf(patientAssessment.getGraftDetails())).isDisplayed();
+         Thread.sleep(3000);
+         jse.executeScript("document.querySelector('div.ant-upload-select-text input[type=file]').style.display='block';");
+         Thread.sleep(1000);
+         driver.findElement(By.xpath("//div[contains(@class, 'ant-upload-select-text')]//input")).sendKeys(graftDetails);
+    }
+
     @Then("Add assessment for {string}")
     public void addAssessmentFor(String arg0) throws InterruptedException {
         wait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"main-body\"]/div/div[3]/div/div[1]/div[1]/div[2]/button"))).click();
@@ -1158,6 +1177,12 @@ public class stepDefinitions extends BaseClass {
     @Then("Upload facility document")
     public void uploadFacilityDocument() throws InterruptedException {
         addFacility.getUploadButton().sendKeys(filepath);
+        Thread.sleep(4000);
+    }
+
+    @Then("Upload facility document in update facility screen")
+    public void uploadFacilityDocumentInUpdateFacilityScreen() throws Throwable{
+        addFacility.getUploadButtonUpdate().sendKeys(filepath);
         Thread.sleep(4000);
     }
 

@@ -1,6 +1,7 @@
 package StepDefinitions;
 
 import io.cucumber.java.en_old.Ac;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -10,6 +11,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.security.SecureRandom;
 import java.time.Duration;
@@ -33,12 +35,15 @@ public class BaseClass {
     static SecureRandom secureRnd = new SecureRandom();
     public static String filepath = System.getProperty("user.dir") + File.separator + "src\\test\\resources\\document.pdf";
     public static String imagepath = System.getProperty("user.dir") + File.separator + "src\\test\\resources\\image.jpeg";
+    public static String graftDetails = System.getProperty("user.dir") + File.separator + "src\\test\\resources\\graft-details.pdf";
+    public static JavascriptExecutor jse;
 
     public static void Launchbrowser() throws Exception {
         System.setProperty("webdriver.chrome.driver", "Browsers\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        jse = (JavascriptExecutor) driver;
         //return driver;
     }
 
@@ -121,13 +126,12 @@ public class BaseClass {
     }
 
     public static void scrollIntoView(WebElement element) {
-        JavascriptExecutor jse = (JavascriptExecutor) driver;
         jse.executeScript("arguments[0].scrollIntoView()", element);
 
     }
 
+
     public static void javascriptClick(WebElement element) {
-        JavascriptExecutor jse = (JavascriptExecutor) driver;
         jse.executeScript("arguments[0].click()", element);
     }
 
@@ -144,6 +148,17 @@ public class BaseClass {
     public static void actionEnter() {
         Actions actions = new Actions(driver);
         actions.sendKeys(Keys.ENTER).perform();
+    }
+
+    public static void deletePreviousReports() throws IOException {
+        File file = new File(System.getProperty("user.dir") + File.separator + "test-output" + File.separator + "screenshots");
+
+        try {
+            FileUtils.deleteDirectory(file);
+            System.out.println("Previous reports directory deleted successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

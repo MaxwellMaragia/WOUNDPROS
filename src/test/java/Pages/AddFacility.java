@@ -59,10 +59,16 @@ public class AddFacility extends BaseClass {
         return documentType;
     }
 
-    @FindBy(xpath = "//*[@id=\"faceSheetForm\"]/div[4]/div[2]/div/div/span/div[1]/span/input")
+    @FindBy(xpath = "//*[@id=\"faceSheetForm\"]/div[4]/div[2]/div/div/span/div/div/span/input")
     WebElement uploadButton;
     public WebElement getUploadButton(){
         return uploadButton;
+    }
+
+    @FindBy(xpath = "//*[@id=\"faceSheetForm\"]/div[4]/div[2]/div/div/span/div[1]/span/input")
+    WebElement uploadButtonUpdate;
+    public WebElement getUploadButtonUpdate(){
+        return uploadButtonUpdate;
     }
 
     @FindBy(className = "mapboxgl-ctrl-geocoder--input")

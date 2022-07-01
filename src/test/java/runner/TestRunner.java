@@ -4,7 +4,9 @@
 package runner;
 
 import java.io.File;
+import java.io.IOException;
 
+import StepDefinitions.BaseClass;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
@@ -17,7 +19,7 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(
 		features = "src\\test\\resources\\Features",
 		glue = "StepDefinitions" ,
-		//tags = "@PatientAssessmentWoundDebridement",
+//		tags = "@BiologicsApplication",
 		dryRun = false,    //checks whether each feature has a mapped step definition
 		monochrome = true,// neat output after tc run
 		plugin = {"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:","json:target/positive/cucumber.json", "pretty", "html:target/positive/cucumber.html"}
@@ -25,7 +27,10 @@ import io.cucumber.junit.CucumberOptions;
 
 
 public class TestRunner{
-
+	@BeforeClass
+	public static void beforeSuite() throws IOException {
+		BaseClass.deletePreviousReports();
+	}
 }
 
 	

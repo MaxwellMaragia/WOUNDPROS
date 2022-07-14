@@ -1,18 +1,13 @@
-
-
-
 package runner;
 
-import java.io.File;
-import java.io.IOException;
-
 import StepDefinitions.BaseClass;
-import org.junit.AfterClass;
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 
-import io.cucumber.junit.Cucumber;
-import io.cucumber.junit.CucumberOptions;
+
+import java.io.IOException;
 
 
 @RunWith(Cucumber.class)

@@ -22,6 +22,7 @@ Powershell script for execution in jenkins is found in root project directory an
 
 Scheduled execution on local machine
 ....................................
+Install maven using this link https://maven.apache.org/install.html
 You can schedule execution without using and IDE and set it to run at desired time under system configuration, the bat file is in root directory and is named "run.bat", please modify with correct file path
 
 Covered modules/End to end flow

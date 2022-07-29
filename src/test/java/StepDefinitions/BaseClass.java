@@ -161,4 +161,8 @@ public class BaseClass {
         }
     }
 
+    public static void makeClickable(WebElement element){
+        jse.executeScript("arguments[0].removeAttribute('unselectable'); return arguments[0];", element);
+    }
+
 }

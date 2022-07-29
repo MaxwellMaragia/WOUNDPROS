@@ -1194,8 +1194,8 @@ public class stepDefinitions extends BaseClass {
     @Then("Click on newly created patient")
     public void clickOnNewlyCreatedPatient() {
         if(sharedatastep.PatientFirstName==null && sharedatastep.PatientLastName==null){
-            sharedatastep.PatientFirstName = "Gaston";
-            sharedatastep.PatientLastName = "Schamberger";
+            sharedatastep.PatientFirstName = "Keith";
+            sharedatastep.PatientLastName = "Gerrison";
         }
         wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='" + sharedatastep.PatientFirstName + " " + sharedatastep.PatientLastName + "']"))).click();
     }
@@ -1375,7 +1375,61 @@ public class stepDefinitions extends BaseClass {
         wait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='"+arg0+"']/following-sibling::button[text()='Start Assessment']"))).click();
     }
 
+    @Then("Click on health data tab")
+    public void clickOnHealthDataTab() {
+        wait(20).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div//p[text()='Health Data']"))).click();
+    }
 
+    @Then("Click on allergies tab")
+    public void clickOnAllergiesTab() {
+        wait(20).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"main-body\"]/div/div[3]/div/div/div[1]/div/div/div/button"))).click();
+    }
+
+    @Then("Select Allergy type as {string}")
+    public void selectAllergyTypeAs(String arg0) throws InterruptedException {
+        Thread.sleep(2000);
+        makeClickable(addPatient.getAllergyType());
+        addPatient.getAllergyType().click();
+        wait(60).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Select Allergen as {string}")
+    public void selectAllergenAs(String arg0) {
+
+        makeClickable(addPatient.getAllergen());
+        addPatient.getAllergen().click();
+        wait(60).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Select Reaction as {string}")
+    public void selectReactionAs(String arg0) throws InterruptedException {
+        makeClickable(addPatient.getReaction());
+        addPatient.getReaction().click();
+        wait(60).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+    }
+
+    @Then("Select Status as {string}")
+    public void selectStatusAs(String arg0) throws InterruptedException {
+        makeClickable(addPatient.getStatus());
+        addPatient.getStatus().click();
+        wait(60).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@title, '" + arg0 + "')]//div[text()='" + arg0 + "']"))).click();
+
+    }
+
+    @Then("Enter notes as {string}")
+    public void enterNotesAs(String arg0) {
+        addPatient.getNotes().sendKeys(arg0);
+    }
+
+    @Then("Click create to save allergy")
+    public void clickCreateToSaveAllergy() {
+        driver.findElement(By.xpath("//button[text()='Create']")).click();
+    }
+
+    @Then("Click + under allergies")
+    public void clickUnderAllergies() {
+        wait(20).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"patient-encounter-tabs\"]/div[2]/div/div[1]/div/div/div/button"))).click();
+    }
 }
 
 

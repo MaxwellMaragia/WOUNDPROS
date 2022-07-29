@@ -1,4 +1,4 @@
-set projectLocation=C:\work\TBL-NRA-RETURN-REGISTRATION-SANITY
+set projectLocation=D:\work\projects\WOUNDPROS
 cd %projectLocation%
 mvn clean test
 pause

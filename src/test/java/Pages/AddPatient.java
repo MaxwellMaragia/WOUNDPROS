@@ -172,4 +172,33 @@ public class AddPatient extends BaseClass {
         return patientNotes;
     }
 
+    @FindBy(xpath = "//*[@id=\"new-patient_allergy_type\"]")
+    WebElement allergyType;
+    public WebElement getAllergyType(){
+        return allergyType;
+    }
+
+    @FindBy(xpath = "//*[@id=\"new-patient_allergen\"]")
+    WebElement allergen;
+    public WebElement getAllergen(){
+        return allergen;
+    }
+
+    @FindBy(xpath = "//*[@id=\"new-patient_reaction\"]")
+    WebElement reaction;
+    public WebElement getReaction(){
+        return reaction;
+    }
+
+    @FindBy(xpath = "//*[@id=\"new-patient_status\"]")
+    WebElement status;
+    public WebElement getStatus(){
+        return status;
+    }
+
+    @FindBy(id = "new-patient_notes")
+    WebElement notes;
+    public WebElement getNotes(){
+        return notes;
+    }
 }
